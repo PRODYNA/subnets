@@ -102,7 +102,6 @@
       createRow(calcbody, rootSubnet, curNetwork, curMask, [curMask, rootSubnet[1], rootSubnet], rootSubnet[0]);
 
       document.getElementById('joinHeader').colSpan = (rootSubnet[0] > 0 ? rootSubnet[0] : 1);
-      //  document.getElementById('col_join').span = (rootSubnet[0] > 0 ? rootSubnet[0] : 1);
 
       /* Create the bookmark hyperlink */
       var link = document.getElementById('saveLink');
@@ -273,7 +272,6 @@
             else {
               newCell.className = 'maskSpanJoinable';
               newCell.onclick = newJoin(joinnode);
-              //	newCell.onmouseover = function() { window.status = joinnode[0]+'---'+joinnode[1]+'---'+joinnode[2]+'>>>>>'+node[2];}
             }
 
             var newSpan = document.createElement('SPAN');
@@ -380,24 +378,7 @@
       return network_address(0xffffffff, mask);
     }
 
-
-    function preloadSubnetImages() {
-      if (document.images) {
-        if (!document.preloadedImages) {
-          document.preloadedImages = new Array();
-        }
-
-        for (var i = 0; i <= 32; i++) {
-          var img = new Image();
-          img.src = 'img/' + i + '.gif';
-          document.preloadedImages.push(i);
-        }
-      }
-    }
-
-
     function calcOnLoad() {
-      preloadSubnetImages();
       args = parseQueryString();
       if (args['network'] && args['mask'] && args['division']) {
         document.forms['calc'].elements['network'].value = args['network'];
@@ -450,22 +431,10 @@
 
     function toggleColumn(cb) {
       var colName = 'col_' + (cb.id.substr(3));
-      //  var col = document.getElementById(colName);
-
       visibleColumns[cb.id.substr(3)] = cb.checked;
-
-      //  if (cb.checked) {
-      //    col.style.display = 'table-column';
-      //    col.style.visibility = 'visible';
-      //  }
-      //  else {
-      //    col.style.display = 'none';
-      //    col.style.visibility = 'collapse';
-      //  }
       recreateTables(); /* because IE draws lines all over the place with border-collapse */
     }
 
-//-->
   </script>
 
   <style type="text/css">
@@ -644,11 +613,6 @@
                 hyperlink</a>.</p>
 
           </td>
-          <!--<td align="right">
-            <a href="https://github.com/davidc/subnets"><img alt="Fork me on GitHub"
-                src="https://github.blog/wp-content/uploads/2008/12/forkme_right_white_ffffff.png"
-                style="right: 0;top: 0;position: absolute;"></a>
-          </td>-->
         </tr>
       </table>
 
@@ -668,14 +632,7 @@
             <th id="joinHeader">Join</th>
           </tr>
         </thead>
-        <tbody id="calcbody">
-          <!--tr>
-<td>130.94.203.0/24</td>
-<td>130.94.203.0 - 130.94.203.255</td>
-<td>130.94.203.1 - 130.94.203.254 (254)</td>
-<td>Divide</td>
-</tr-->
-        </tbody>
+        <tbody id="calcbody"></tbody>
       </table>
     </div>
   </div>
@@ -688,32 +645,46 @@
         <div class="col mb-3">
           <h5 class="mb-4"><a href="https://www.prodyna.com/services">SERVICES</a></h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/digital-transformation-strategy" class="nav-link p-0 text-white">Define Vision</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/customer-experience-design" class="nav-link p-0 text-white">Find Solution</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/custom-software-development" class="nav-link p-0 text-white">Build Solution</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/managed-it-services" class="nav-link p-0 text-white">Manage Solution</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/digital-transformation-strategy"
+                class="nav-link p-0 text-white">Define Vision</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/customer-experience-design"
+                class="nav-link p-0 text-white">Find Solution</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/custom-software-development"
+                class="nav-link p-0 text-white">Build Solution</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/services/managed-it-services"
+                class="nav-link p-0 text-white">Manage Solution</a></li>
           </ul>
         </div>
 
         <div class="col mb-3">
           <h5 class="mb-4"><a href="https://www.prodyna.com/expertise">EXPERTISE</a></h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/microsoft-azure-cloud" class="nav-link p-0 text-white">Microsoft Azure</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/product-design" class="nav-link p-0 text-white">Product Design</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/cloud-infrastructure" class="nav-link p-0 text-white">Cloud Infrastructure</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/aws-services" class="nav-link p-0 text-white">Amazon Web Services</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/cloud-transformations" class="nav-link p-0 text-white">Cloud Transformation</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/microsoft-azure-cloud"
+                class="nav-link p-0 text-white">Microsoft Azure</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/product-design"
+                class="nav-link p-0 text-white">Product Design</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/cloud-infrastructure"
+                class="nav-link p-0 text-white">Cloud Infrastructure</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/aws-services"
+                class="nav-link p-0 text-white">Amazon Web Services</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/cloud-transformations"
+                class="nav-link p-0 text-white">Cloud Transformation</a></li>
           </ul>
         </div>
 
         <div class="col mb-3">
           <h5 class="mb-4 global-o-0">EMPTY</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/neo4j" class="nav-link p-0 text-white">Neo4j</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/mobile-app-development" class="nav-link p-0 text-white">Mobile Apps</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/quality-assurance" class="nav-link p-0 text-white">Quality Assurance</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/managed-it-service-provider" class="nav-link p-0 text-white">Managed Service</a></li>
-            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/it-training-certifications" class="nav-link p-0 text-white">Training & Certifications</a>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/neo4j"
+                class="nav-link p-0 text-white">Neo4j</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/mobile-app-development"
+                class="nav-link p-0 text-white">Mobile Apps</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/quality-assurance"
+                class="nav-link p-0 text-white">Quality Assurance</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/managed-it-service-provider"
+                class="nav-link p-0 text-white">Managed Service</a></li>
+            <li class="nav-item mb-2"><a href="https://www.prodyna.com/expertises/it-training-certifications"
+                class="nav-link p-0 text-white">Training & Certifications</a>
             </li>
           </ul>
         </div>
