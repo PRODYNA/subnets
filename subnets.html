@@ -522,9 +522,9 @@
 
     }); 
   </script>
-  <nav class="autohide navbar navbar-expand-lg bg-black text-white scrolled-up">
-    <div class="container-fluid">
-      <div class="d-flex flex-grow-1 justify-content-around">
+  <nav class="autohide navbar navbar-expand-lg bg-black text-white scrolled-up navbar-dark bg-dark">
+    <div class="container">
+      <div class="d-flex flex-grow-1 justify-content-start">
         <a class="navbar-brand" href="#">
           <img
             src="https://uploads-ssl.webflow.com/6267a1f7a8182aa6e6312ff3/62e2654e8f998c0b17f2e2c3_prodyna%20logo.svg"
@@ -536,7 +536,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav global-ul-spacing mb-2 mb-lg-0">
+        <ul class="navbar-nav global-ul-spacing mb-2 mb-lg-0 align-items-center">
           <li class="nav-item">
             <a class="nav-link active text-white" aria-current="page"
               href="https://www.prodyna.com/services">SERVICES</a>
@@ -589,7 +589,7 @@
                 </tr>
               </table>
 
-              <p>Show columns:
+              <p class="global-options">Show columns:
                 <input type="checkbox" id="cb_subnet" checked onclick="toggleColumn(this)"><label for="cb_subnet">Subnet
                   address</label>
                 <input type="checkbox" id="cb_netmask" onclick="toggleColumn(this)"><label
