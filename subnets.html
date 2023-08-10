@@ -239,6 +239,8 @@
           var newCell = document.createElement('TD');
           newRow.appendChild(newCell);
 
+          newCell.classList.add('hiddenFromCopy');
+
           if (mask == 32) {
             var newLink = document.createElement('SPAN');
             newLink.className = 'disabledAction';
@@ -266,11 +268,13 @@
             newCell.rowSpan = (rowspan > 1 ? rowspan : 1);
             newCell.colSpan = (colspan > 1 ? colspan : 1);
 
+            newCell.classList.add('hiddenFromCopy');
+
             if (i == (labels.length / 3) - 1) {
-              newCell.className = 'maskSpan';
+              newCell.classList.add('maskSpan');
             }
             else {
-              newCell.className = 'maskSpanJoinable';
+              newCell.classList.add('maskSpanJoinable');
               newCell.onclick = newJoin(joinnode);
             }
 
@@ -612,6 +616,48 @@
               If you wish to save this subnetting for later, bookmark <a href="subnets.html" id="saveLink">this
                 hyperlink</a>.</p>
 
+            <button class="btn-copy" onclick="prepareTable('copyable')">Copy Table to Markdown</button>
+            <script>
+              function prepareTable(el){
+                var el = document.querySelector('#'+el);
+                var md = toMarkdown(el);
+
+                navigator.clipboard.writeText(md);
+              }
+
+              function toMarkdown(doc) {
+                let s = '| ';
+
+                let thead = doc.querySelector('thead');
+                let headcells = thead.querySelectorAll('td:not([style*="display:none"]):not([style*="display: none"]), th:not([style*="display:none"]):not([style*="display: none"]):not(.hiddenFromCopy)');
+                for (let i = 0; i < headcells.length; i++) {
+                    let cell = headcells[i];
+                    s += cell.textContent.trim() + ' | ';
+                }
+
+                s += '\n'
+
+                for (let i = 0; i < headcells.length; i++) {
+                    s += '|---------'
+                }
+
+                s += '|\n'
+
+                let tbody = doc.querySelector('tbody');
+                let trs = tbody.querySelectorAll('tr');
+                for (let i = 0; i < trs.length; i++) {
+                    s += '| '
+                    let tr = trs.item(i);
+                    let tds = tr.querySelectorAll('td:not([style*="display:none"]):not([style*="display: none"]):not(.hiddenFromCopy)');
+                    for (let j = 0; j < tds.length; j++) {
+                        let td = tds.item(j);
+                        s += td.textContent.trim() + ' | ';
+                    }
+                    s += '\n';
+                }
+                return s;
+              }
+            </script>
           </td>
         </tr>
       </table>
@@ -620,7 +666,7 @@
       <hr noshade color="black" size="1">
       <br>
 
-      <table class="calc global-font" cellspacing="0" cellpadding="2">
+      <table id="copyable" class="calc global-font" cellspacing="0" cellpadding="2">
         <thead class="text-black">
           <tr>
             <th id="subnetHeader">Subnet address</th>
@@ -628,12 +674,13 @@
             <th id="rangeHeader">Range of addresses</th>
             <th id="useableHeader">Useable IPs</th>
             <th id="hostsHeader">Hosts</th>
-            <th id="divideHeader">Divide</th>
-            <th id="joinHeader">Join</th>
+            <th id="divideHeader" class="hiddenFromCopy">Divide</th>
+            <th id="joinHeader" class="hiddenFromCopy">Join</th>
           </tr>
         </thead>
         <tbody id="calcbody"></tbody>
       </table>
+      <input type="textarea" style="display: none;" id="table-hidden" />
     </div>
   </div>
 
