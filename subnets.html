@@ -568,6 +568,71 @@
 
   <div class="container mt-5 mb-5 pt-4 pb-4 global-main">
     <div class="row">
+      <div class="import-export">
+        <button onclick="download()">Export</button>
+        <button onclick="upload()">Import</button>
+        <input type="file" accept=".txt" id="import-file" name="import-file" style="display: none;" />
+        <script>
+          function upload() {
+            const inputElement = document.getElementById("import-file");
+
+            inputElement.click();
+            inputElement.addEventListener("change", handleFiles, false);
+          }
+
+          function handleFiles() {
+            const fileUpload = this.files;
+
+            if(fileUpload.length > 0) {
+              const reader = new FileReader();
+              // attach event, that will be fired, when read is end
+              reader.addEventListener("loadend", function() {
+                // reader.result contains the contents of blob as a typed array
+                console.log(reader.result);
+              });
+
+              // start reading a loaded file
+              args = reader.readAsText(fileUpload);
+              console.log(args);
+/*
+              fNetwork = args[0];
+              fMask = args[1];
+              fDivision = args[2];
+              
+              if (fNetwork && fMask && fDivision) {
+                document.forms['calc'].elements['network'].value = fNetwork;
+                document.forms['calc'].elements['netbits'].value = fMask;
+                updateNetwork();
+                var division = asciiToBin(fDivision);
+                rootSubnet = [0, 0, null];
+                if (division != '0') {
+                  loadNode(rootSubnet, division);
+                }
+                recreateTables();
+              }
+              else {
+                updateNetwork();
+              }*/
+            } else {
+              alert("Wrong file format detected in your upload process!");
+            }
+          }
+
+          function download() {
+            var element = document.createElement('a');
+            var text = inet_ntoa(curNetwork) + ';' + curMask + ';' + binToAscii(nodeToString(rootSubnet));
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', 'network=' + inet_ntoa(curNetwork) + '&mask=' + curMask + '&division=' + binToAscii(nodeToString(rootSubnet)) + '.txt' );
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+          }
+        </script>
+      </div>
       <table width="100%" class="global-font">
         <tr valign=top>
           <td>

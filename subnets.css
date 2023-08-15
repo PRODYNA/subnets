@@ -79,3 +79,10 @@ footer a {
     float: right;
     margin-bottom: 1rem;
 }
+
+.import-export { padding: unset; }
+
+.import-export button {
+    float: right;
+    margin-left: 1rem;
+}
