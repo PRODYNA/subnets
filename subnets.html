@@ -571,48 +571,32 @@
       <div class="import-export">
         <button onclick="download()">Export</button>
         <button onclick="upload()">Import</button>
-        <input type="file" accept=".txt" id="import-file" name="import-file" style="display: none;" />
+        <input type="file" accept=".txt" onchange="handleFiles()" id="import-file" name="import-file" style="display: none;" />
         <script>
           function upload() {
-            const inputElement = document.getElementById("import-file");
-
-            inputElement.click();
-            inputElement.addEventListener("change", handleFiles, false);
+            document.getElementById("import-file").click();
           }
 
           function handleFiles() {
-            const fileUpload = this.files;
+            const [file] = document.getElementById("import-file").files;
+            const reader = new FileReader();
 
-            if(fileUpload.length > 0) {
-              const reader = new FileReader();
-              // attach event, that will be fired, when read is end
-              reader.addEventListener("loadend", function() {
-                // reader.result contains the contents of blob as a typed array
-                console.log(reader.result);
-              });
+            reader.addEventListener(
+              "load",
+              () => {
+                s = reader.result.split(';');
 
-              // start reading a loaded file
-              args = reader.readAsText(fileUpload);
-              console.log(args);
-/*
-              fNetwork = args[0];
-              fMask = args[1];
-              fDivision = args[2];
-              
-              if (fNetwork && fMask && fDivision) {
-                document.forms['calc'].elements['network'].value = fNetwork;
-                document.forms['calc'].elements['netbits'].value = fMask;
-                updateNetwork();
-                var division = asciiToBin(fDivision);
-                rootSubnet = [0, 0, null];
-                if (division != '0') {
-                  loadNode(rootSubnet, division);
+                if (s.length === 3) {
+                  window.open('subnets.html?network=' + s[0] + '&mask=' + s[1] + '&division=' + s[2], "_self");
+                } else {
+                  alert("Wrong file!");
                 }
-                recreateTables();
-              }
-              else {
-                updateNetwork();
-              }*/
+              },
+              false,
+            );
+
+            if (file) {
+              reader.readAsText(file);
             } else {
               alert("Wrong file format detected in your upload process!");
             }
