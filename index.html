@@ -106,7 +106,7 @@
       /* Create the bookmark hyperlink */
       var link = document.getElementById('saveLink');
       if (link) {
-        link.href = 'subnets.html?network=' + inet_ntoa(curNetwork) + '&mask=' + curMask + '&division=' + binToAscii(nodeToString(rootSubnet));
+        link.href = 'index.html?network=' + inet_ntoa(curNetwork) + '&mask=' + curMask + '&division=' + binToAscii(nodeToString(rootSubnet));
       }
     }
 
@@ -565,7 +565,7 @@
                 s = reader.result.split(';');
 
                 if (s.length === 3) {
-                  window.open('subnets.html?network=' + s[0] + '&mask=' + s[1] + '&division=' + s[2], "_self");
+                  window.open('index.html?network=' + s[0] + '&mask=' + s[1] + '&division=' + s[2], "_self");
                 } else {
                   alert("Wrong file!");
                 }
@@ -640,7 +640,7 @@
             </form>
 
             <p>Click below to split and join subnets.<br>
-              If you wish to save this subnetting for later, bookmark <a href="subnets.html" id="saveLink">this
+              If you wish to save this subnetting for later, bookmark <a href="index.html" id="saveLink">this
                 hyperlink</a>.</p>
 
             <button class="btn-copy" onclick="prepareTable('copyable')">Copy Table to Markdown</button>
