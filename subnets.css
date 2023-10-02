@@ -4,6 +4,7 @@ html {
 
 .global-mask {
     writing-mode: vertical-rl;
+    min-width: 1rem;
 }
 
 .global-main {
