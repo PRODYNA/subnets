@@ -1,5 +1,5 @@
 # subnets
-Visual subnet calculator as seen at [(https://subnets.cnee.prodyna.com/](https://subnets.cnee.prodyna.com/)
+Visual subnet calculator as seen at [https://subnets.cnee.prodyna.com/](https://subnets.cnee.prodyna.com/)
 
 # Run with docker
 
